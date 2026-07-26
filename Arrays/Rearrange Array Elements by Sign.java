@@ -9,37 +9,30 @@
  * Space Complexity: O(n)
  *
  * Idea:
- * - Store positive and negative numbers in separate arrays.
- * - Traverse both arrays simultaneously.
- * - Place positive numbers at even indices and negative numbers at odd indices.
+ * - Create a result array of the same size.
+ * - Place positive numbers at even indices.
+ * - Place negative numbers at odd indices.
  */
 
 class Solution {
 
     public int[] rearrangeArray(int[] nums) {
 
-        int[] pos = new int[nums.length / 2];
-        int[] neg = new int[nums.length / 2];
-
         int posIdx = 0;
-        int negIdx = 0;
+        int negIdx = 1;
+        int[] res = new int[nums.length];
 
         for (int i = 0; i < nums.length; i++) {
 
-            if (!(nums[i] < 0)) {
-                pos[posIdx] = nums[i];
-                posIdx++;
+            if (nums[i] < 0) {
+                res[negIdx] = nums[i];
+                negIdx += 2;
             } else {
-                neg[negIdx] = nums[i];
-                negIdx++;
+                res[posIdx] = nums[i];
+                posIdx += 2;
             }
         }
 
-        for (int i = 0; i < nums.length / 2; i++) {
-            nums[2 * i] = pos[i];
-            nums[2 * i + 1] = neg[i];
-        }
-
-        return nums;
+        return res;
     }
 }
